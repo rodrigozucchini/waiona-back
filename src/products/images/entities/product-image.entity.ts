@@ -1,7 +1,7 @@
 import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { BaseEntity } from '../../../common/entities/base.entity';
-import { ProductEntity } from '../../entities/products/product.entity';
-import { ImageEntity } from '../images/image.entity';
+import { ProductEntity } from '../../entities/product.entity';
+import { ImageEntity } from '../../images/entities/image.entity';
 
 @Entity('product_images')
 export class ProductImageEntity extends BaseEntity {

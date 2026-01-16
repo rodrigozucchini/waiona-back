@@ -1,7 +1,7 @@
 import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { BaseEntity } from '../../../common/entities/base.entity';
-import { ComboEntity } from '../products/combo.entity';
-import { ProductEntity } from '../../entities/products/product.entity';
+import { ProductEntity } from '../../entities/product.entity';
+import { ComboEntity } from './combo.entity';
 
 @Entity('combo_products')
 export class ComboProductEntity extends BaseEntity {

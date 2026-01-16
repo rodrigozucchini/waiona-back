@@ -1,7 +1,7 @@
 import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { BaseEntity } from '../../../common/entities/base.entity';
 import { ComboEntity } from '../products/combo.entity';
-import { ImageEntity } from '../images/image.entity';
+import { ImageEntity } from '../../images/entities/image.entity';
 
 @Entity('combo_images')
 export class ComboImageEntity extends BaseEntity {
