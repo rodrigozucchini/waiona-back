@@ -1,6 +1,7 @@
 import { Entity, Column, OneToMany } from 'typeorm';
 import { BaseEntity } from '../../../common/entities/base.entity';
-import { ComboProductEntity } from '../products/combo-product.entity';
+import { ComboProductEntity } from './combo-product.entity';
+
 
 @Entity('combos')
 export class ComboEntity extends BaseEntity {

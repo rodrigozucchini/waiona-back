@@ -1,7 +1,9 @@
 import { Entity, Column, OneToMany } from 'typeorm';
 import { BaseEntity } from 'src/common/entities/base.entity';
-import { ComboImageEntity } from '../images/combo-image.entity';
-import { ProductImageEntity } from '../images/product-image.entity';
+import { ProductImageEntity } from './product-image.entity';
+import { ComboImageEntity } from './combo-image.entity';
+
+
 
 @Entity('images')
 export class ImageEntity extends BaseEntity {
