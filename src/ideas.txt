@@ -1,0 +1,11 @@
+Coupon {
+  code
+  calculationType: PERCENTAGE | FIXED
+  value
+  minAmount?
+  maxUses?
+  expirationDate?
+  allowedProducts?
+  allowedCombos?
+  isActive
+}
