@@ -1,0 +1,72 @@
+Coupon {
+  code
+  calculationType: PERCENTAGE | FIXED
+  value
+  minAmount?
+  maxUses?
+  expirationDate?
+  allowedProducts?
+  allowedCombos?
+  isActive
+}
+
+
+
+src/
+│
+├── auth/
+│   ├── auth.module.ts
+│   ├── auth.controller.ts
+│   ├── auth.service.ts
+│   ├── strategies/
+│   │   ├── jwt.strategy.ts
+│   │   └── local.strategy.ts
+│   ├── guards/
+│   │   ├── jwt-auth.guard.ts
+│   │   ├── permissions.guard.ts
+│   └── decorators/
+│       └── permissions.decorator.ts
+│
+├── users/
+│   ├── users.module.ts
+│   ├── users.controller.ts
+│   ├── users.service.ts
+│   ├── entities/
+│   │   └── user.entity.ts
+│   ├── dto/
+│   │   ├── create-user.dto.ts
+│   │   ├── update-user.dto.ts
+│   │   └── user-response.dto.ts
+│
+├── roles/
+│   ├── roles.module.ts
+│   ├── roles.service.ts
+│   ├── roles.controller.ts
+│   ├── entities/
+│   │   └── role.entity.ts
+│   └── dto/
+│
+├── permissions/
+│   ├── permissions.module.ts
+│   ├── permissions.service.ts
+│   ├── permissions.controller.ts
+│   ├── entities/
+│   │   └── permission.entity.ts
+│
+├── profiles/
+│   ├── admin-profile/
+│   │   ├── admin-profile.module.ts
+│   │   ├── admin-profile.service.ts
+│   │   ├── admin-profile.controller.ts
+│   │   └── entities/admin-profile.entity.ts
+│   │
+│   └── client-profile/
+│       ├── client-profile.module.ts
+│       ├── client-profile.service.ts
+│       ├── client-profile.controller.ts
+│       └── entities/client-profile.entity.ts
+│
+└── common/
+    ├── guards/
+    ├── decorators/
+    └── entities/

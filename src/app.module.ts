@@ -10,6 +10,12 @@ import { MarginsModule } from './pricing/margins/margins.module';
 import { DiscountsModule } from './pricing/discounts/discounts.module';
 import { TaxTypesModule } from './pricing/tax-types/tax-types.module';
 import { DiscountTypesModule } from './pricing/discount-types/discount-types.module';
+import { ImagesService } from './images/images/images.service';
+import { UsersModule } from './users/users.module';
+import { PermissionsModule } from './permissions/permissions.module';
+import { RolesModule } from './roles/roles.module';
+import { AuthModule } from './auth/auth.module';
+import { ProfilesModule } from './profiles/profiles.module';
 
 @Module({
   imports: [
@@ -31,8 +37,13 @@ import { DiscountTypesModule } from './pricing/discount-types/discount-types.mod
     DiscountsModule,
     TaxTypesModule,
     DiscountTypesModule,
+    UsersModule,
+    PermissionsModule,
+    RolesModule,
+    AuthModule,
+    ProfilesModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, ImagesService],
 })
 export class AppModule {}
