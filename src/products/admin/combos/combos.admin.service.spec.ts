@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ComboAdminService } from './combos.admin.service';
+import { CombosAdminService } from './combos.admin.service';
 
 describe('CombosService', () => {
-  let service: ComboAdminService;
+  let service: CombosAdminService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [ComboAdminService],
+      providers: [CombosAdminService],
     }).compile();
 
-    service = module.get<ComboAdminService>(ComboAdminService);
+    service = module.get<CombosAdminService>(CombosAdminService);
   });
 
   it('should be defined', () => {

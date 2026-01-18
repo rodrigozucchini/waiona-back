@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ComboAdminController } from './combos.admin.controller';
+import { CombosAdminController } from './combos.admin.controller';
 
 describe('CombosController', () => {
-  let controller: ComboAdminController;
+  let controller: CombosAdminController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [ComboAdminController],
+      controllers: [CombosAdminController],
     }).compile();
 
-    controller = module.get<ComboAdminController>(ComboAdminController);
+    controller = module.get<CombosAdminController>(CombosAdminController);
   });
 
   it('should be defined', () => {
