@@ -9,10 +9,10 @@ import { CreateComboAdminDto } from './dto/create-combo.admin.dto';
 import { UpdateComboAdminDto } from './dto/update-combo.admin.dto';
 
 import { UpdateComboProductAdminDto } from './dto/update-combo-product.admin.dto';
-import { AddProductToComboAdminDto } from './dto/add-product-combo.admin.dto';
+import { CreateProductToComboAdminDto } from './dto/create-product-combo.admin.dto';
 
 @Injectable()
-export class ComboAdminService {
+export class CombosAdminService {
   constructor(
     @InjectRepository(ComboEntity)
     private readonly comboRepository: Repository<ComboEntity>,
@@ -51,7 +51,11 @@ export class ComboAdminService {
 
   async update(id: number, dto: UpdateComboAdminDto) {
     const combo = await this.findOne(id);
-    Object.assign(combo, dto);
+  
+    // Asignación explícita de campos para PUT
+    combo.name = dto.name;
+    combo.description = dto.description ?? null;
+  
     return this.comboRepository.save(combo);
   }
 
@@ -65,7 +69,7 @@ export class ComboAdminService {
   // Combo Products
   // =========================
 
-  async addProductToCombo(dto: AddProductToComboAdminDto) {
+  async addProductToCombo(dto: CreateProductToComboAdminDto) {
     const relation = this.comboProductRepository.create(dto);
     return this.comboProductRepository.save(relation);
   }
@@ -74,12 +78,16 @@ export class ComboAdminService {
     const relation = await this.comboProductRepository.findOne({
       where: { id, isDeleted: false },
     });
-
+  
     if (!relation) {
       throw new NotFoundException('Combo product not found');
     }
-
-    Object.assign(relation, dto);
+  
+    // Asignación explícita para PUT
+    relation.comboId = dto.comboId;
+    relation.productId = dto.productId;
+    relation.quantity = dto.quantity;
+  
     return this.comboProductRepository.save(relation);
   }
 

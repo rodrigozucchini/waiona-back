@@ -1,4 +1,4 @@
-import { ProductResponseAdminDto } from "src/products/dto/product-response.admin.dto";
+import { ProductResponseAdminDto } from "src/products/admin/dto/product-response.admin.dto";
 
 
 export class ComboWithProductsResponseAdminDto {
