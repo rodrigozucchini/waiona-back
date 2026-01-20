@@ -1,17 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { MarginAdminController } from './margins.admin.controller';
-import { MarginAdminService } from './margins.admin.service';
+import { MarginsAdminController } from './margins.admin.controller';
+import { MarginsAdminService } from './margins.admin.service';
 
 describe('MarginsController', () => {
-  let controller: MarginAdminController;
+  let controller: MarginsAdminController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [MarginAdminController],
-      providers: [MarginAdminService],
+      controllers: [MarginsAdminController],
+      providers: [MarginsAdminService],
     }).compile();
 
-    controller = module.get<MarginAdminController>(MarginAdminController);
+    controller = module.get<MarginsAdminController>(MarginsAdminController);
   });
 
   it('should be defined', () => {

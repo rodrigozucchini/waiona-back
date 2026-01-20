@@ -51,11 +51,11 @@ export class CombosAdminService {
 
   async update(id: number, dto: UpdateComboAdminDto) {
     const combo = await this.findOne(id);
-  
+
     // Asignación explícita de campos para PUT
     combo.name = dto.name;
     combo.description = dto.description ?? null;
-  
+
     return this.comboRepository.save(combo);
   }
 
@@ -78,16 +78,16 @@ export class CombosAdminService {
     const relation = await this.comboProductRepository.findOne({
       where: { id, isDeleted: false },
     });
-  
+
     if (!relation) {
       throw new NotFoundException('Combo product not found');
     }
-  
+
     // Asignación explícita para PUT
     relation.comboId = dto.comboId;
     relation.productId = dto.productId;
     relation.quantity = dto.quantity;
-  
+
     return this.comboProductRepository.save(relation);
   }
 

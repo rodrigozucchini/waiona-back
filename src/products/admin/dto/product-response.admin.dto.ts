@@ -1,8 +1,7 @@
-import { ProductType } from "src/common/enums/product-type.enum";
-import { MarginResponseAdminDto } from "src/pricing/margins/admin/dto/margin-response.admin.dto";
-import { TaxResponseAdminDto } from "src/pricing/taxes/admin/dto/tax-response.admin.dto";
-import { ProductImageResponseAdminDto } from "../images/dto/product-image-response.admin.dto";
-
+import { ProductType } from 'src/common/enums/product-type.enum';
+import { MarginResponseAdminDto } from 'src/pricing/margins/admin/dto/margin-response.admin.dto';
+import { TaxResponseAdminDto } from 'src/pricing/taxes/admin/dto/tax-response.admin.dto';
+import { ProductImageResponseAdminDto } from '../images/dto/product-image-response.admin.dto';
 
 export class ProductResponseAdminDto {
   id: number;

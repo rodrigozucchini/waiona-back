@@ -1,7 +1,6 @@
 export class MarginResponseAdminDto {
-    id: number;
-    value: number;
-    createdAt: Date;
-    updatedAt: Date;
-  }
-  
+  id: number;
+  value: number;
+  createdAt: Date;
+  updatedAt: Date;
+}

@@ -7,7 +7,7 @@ import { CreateDiscountAdminDto } from './dto/create-discount.admin.dto';
 import { UpdateDiscountAdminDto } from './dto/update-discount.admin.dto';
 
 @Injectable()
-export class DiscountAdminService {
+export class DiscountsAdminService {
   constructor(
     @InjectRepository(DiscountEntity)
     private readonly discountRepository: Repository<DiscountEntity>,
@@ -57,20 +57,17 @@ export class DiscountAdminService {
   async update(id: number, dto: UpdateDiscountAdminDto) {
     const discount = await this.findOne(id);
 
-    if (dto.discountTypeId) {
-      const discountType = await this.discountTypeRepository.findOne({
-        where: { id: dto.discountTypeId, isDeleted: false },
-      });
+    const discountType = await this.discountTypeRepository.findOne({
+      where: { id: dto.discountTypeId, isDeleted: false },
+    });
 
-      if (!discountType) {
-        throw new NotFoundException('Discount type not found');
-      }
-
-      discount.discountType = discountType;
+    if (!discountType) {
+      throw new NotFoundException('Discount type not found');
     }
 
-    if (dto.value !== undefined) discount.value = dto.value;
-    if (dto.isPercentage !== undefined) discount.isPercentage = dto.isPercentage;
+    discount.value = dto.value;
+    discount.isPercentage = dto.isPercentage;
+    discount.discountType = discountType;
 
     return this.discountRepository.save(discount);
   }

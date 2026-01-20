@@ -1,11 +1,19 @@
-import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
-import { MarginAdminService } from './margins.admin.service';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Put,
+  Delete,
+} from '@nestjs/common';
+import { MarginsAdminService } from './margins.admin.service';
 import { CreateMarginAdminDto } from './dto/create-margin.admin.dto';
 import { UpdateMarginAdminDto } from './dto/update-margin.admin.dto';
 
 @Controller('admin/pricing/margins')
-export class MarginAdminController {
-  constructor(private readonly marginService: MarginAdminService) {}
+export class MarginsAdminController {
+  constructor(private readonly marginService: MarginsAdminService) {}
 
   @Post()
   create(@Body() dto: CreateMarginAdminDto) {

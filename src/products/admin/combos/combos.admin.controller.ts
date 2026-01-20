@@ -74,5 +74,3 @@ export class CombosAdminController {
     return this.combosService.getProductsByCombo(+id);
   }
 }
-
-  

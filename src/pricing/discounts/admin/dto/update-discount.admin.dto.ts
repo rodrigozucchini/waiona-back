@@ -1,15 +1,13 @@
 import { IsOptional, IsNumber, IsBoolean, Min } from 'class-validator';
 
 export class UpdateDiscountAdminDto {
-  @IsOptional()
-  discountTypeId?: number;
+  @IsNumber()
+  discountTypeId: number;
 
-  @IsOptional()
   @IsNumber()
   @Min(0)
-  value?: number;
+  value: number;
 
-  @IsOptional()
   @IsBoolean()
-  isPercentage?: boolean;
+  isPercentage: boolean;
 }

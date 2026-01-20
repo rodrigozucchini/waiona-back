@@ -6,18 +6,19 @@ import { ComboEntity } from './combo.entity';
 @Entity('combo_products')
 @Index(['comboId', 'productId'], { unique: true }) // evita duplicados
 export class ComboProductEntity extends BaseEntity {
-
   @Column({ type: 'int', nullable: false })
   comboId: number;
 
   @Column({ type: 'int', nullable: false })
   productId: number;
 
-  @ManyToOne(() => ComboEntity, combo => combo.products, { nullable: false })
+  @ManyToOne(() => ComboEntity, (combo) => combo.products, { nullable: false })
   @JoinColumn({ name: 'comboId' })
   combo: ComboEntity;
 
-  @ManyToOne(() => ProductEntity, product => product.combos, { nullable: false })
+  @ManyToOne(() => ProductEntity, (product) => product.combos, {
+    nullable: false,
+  })
   @JoinColumn({ name: 'productId' })
   product: ProductEntity;
 

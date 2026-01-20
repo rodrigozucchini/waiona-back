@@ -1,9 +1,9 @@
 export class TaxTypeResponseAdminDto {
-    id: number;
-    code: string;
-    name: string;
-  
-    createdAt: Date;
-    updatedAt: Date;
-    isDeleted: boolean;
-  }
+  id: number;
+  code: string;
+  name: string;
+
+  createdAt: Date;
+  updatedAt: Date;
+  isDeleted: boolean;
+}

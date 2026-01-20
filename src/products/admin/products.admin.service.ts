@@ -8,7 +8,7 @@ import { MarginEntity } from 'src/pricing/margins/admin/entities/margin.entity';
 import { TaxEntity } from 'src/pricing/taxes/admin/entities/tax.entity';
 
 @Injectable()
-export class ProductAdminService {
+export class ProductsAdminService {
   constructor(
     @InjectRepository(ProductEntity)
     private readonly productRepository: Repository<ProductEntity>,
@@ -48,26 +48,14 @@ export class ProductAdminService {
   findAll() {
     return this.productRepository.find({
       where: { isDeleted: false },
-      relations: [
-        'images',
-        'images.image',
-        'margin',
-        'taxes',
-        'taxes.taxType',
-      ],
+      relations: ['images', 'images.image', 'margin', 'taxes', 'taxes.taxType'],
     });
   }
 
   async findOne(id: number) {
     const product = await this.productRepository.findOne({
       where: { id, isDeleted: false },
-      relations: [
-        'images',
-        'images.image',
-        'margin',
-        'taxes',
-        'taxes.taxType',
-      ],
+      relations: ['images', 'images.image', 'margin', 'taxes', 'taxes.taxType'],
     });
 
     if (!product) throw new NotFoundException('Product not found');
@@ -78,8 +66,14 @@ export class ProductAdminService {
   async update(id: number, dto: UpdateProductAdminDto) {
     const product = await this.findOne(id);
 
-    Object.assign(product, dto);
+    // Actualización de campos simples
+    if (dto.sku !== undefined) product.sku = dto.sku;
+    if (dto.name !== undefined) product.name = dto.name;
+    if (dto.description !== undefined) product.description = dto.description;
+    if (dto.type !== undefined) product.type = dto.type;
+    if (dto.basePrice !== undefined) product.basePrice = dto.basePrice;
 
+    // Actualización de margen
     if (dto.marginId !== undefined) {
       product.margin = dto.marginId
         ? await this.marginRepository.findOneBy({
@@ -89,10 +83,13 @@ export class ProductAdminService {
         : null;
     }
 
-    if (dto.taxIds) {
-      product.taxes = await this.taxRepository.find({
-        where: { id: In(dto.taxIds), isDeleted: false },
-      });
+    // Actualización de impuestos
+    if (dto.taxIds !== undefined) {
+      product.taxes = dto.taxIds.length
+        ? await this.taxRepository.find({
+            where: { id: In(dto.taxIds), isDeleted: false },
+          })
+        : [];
     }
 
     return this.productRepository.save(product);

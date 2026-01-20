@@ -1,11 +1,11 @@
-import { IsOptional, IsString } from 'class-validator';
+import { IsString, MaxLength } from 'class-validator';
 
 export class UpdateDiscountTypeAdminDto {
-  @IsOptional()
   @IsString()
-  code?: string;
+  @MaxLength(50)
+  code: string;
 
-  @IsOptional()
   @IsString()
-  name?: string;
+  @MaxLength(100)
+  name: string;
 }

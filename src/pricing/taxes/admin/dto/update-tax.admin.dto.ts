@@ -1,16 +1,22 @@
-import { IsOptional, IsBoolean, IsNumber, IsPositive, IsInt } from 'class-validator';
+import {
+  IsInt,
+  IsPositive,
+  Min,
+  Max,
+  IsNumber,
+  IsBoolean,
+} from 'class-validator';
 
 export class UpdateTaxAdminDto {
-  @IsOptional()
   @IsInt()
-  taxTypeId?: number;
-
-  @IsOptional()
-  @IsNumber({ maxDecimalPlaces: 2 })
   @IsPositive()
-  value?: number;
+  taxTypeId: number; // ID del tipo de impuesto
 
-  @IsOptional()
+  @IsNumber({ maxDecimalPlaces: 2 })
+  @Min(0)
+  @Max(100)
+  value: number; // valor del impuesto, por ejemplo 21.00%
+
   @IsBoolean()
-  isPercentage?: boolean;
+  isPercentage: boolean; // true = porcentaje, false = monto fijo
 }

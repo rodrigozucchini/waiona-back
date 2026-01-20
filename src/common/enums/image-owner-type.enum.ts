@@ -1,5 +1,4 @@
 export enum ImageOwnerType {
-    PRODUCT = 'PRODUCT',
-    COMBO = 'COMBO',
-  }
-  
+  PRODUCT = 'PRODUCT',
+  COMBO = 'COMBO',
+}

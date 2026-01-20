@@ -1,3 +1,3 @@
 export interface PriceRule {
-    apply(amount: number): number;
+  apply(amount: number): number;
 }

@@ -6,7 +6,7 @@ import { CreateTaxTypeAdminDto } from './dto/create-tax-type.admin.dto';
 import { UpdateTaxTypeAdminDto } from './dto/update-tax-type.admin.dto';
 
 @Injectable()
-export class TaxTypeAdminService {
+export class TaxTypesAdminService {
   constructor(
     @InjectRepository(TaxTypeEntity)
     private readonly taxTypeRepository: Repository<TaxTypeEntity>,
@@ -35,7 +35,10 @@ export class TaxTypeAdminService {
 
   async update(id: number, dto: UpdateTaxTypeAdminDto) {
     const taxType = await this.findOne(id);
-    Object.assign(taxType, dto);
+
+    taxType.code = dto.code;
+    taxType.name = dto.name;
+
     return this.taxTypeRepository.save(taxType);
   }
 

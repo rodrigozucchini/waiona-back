@@ -6,7 +6,7 @@ import { CreateDiscountTypeAdminDto } from './dto/create-discount-type.admin.dto
 import { UpdateDiscountTypeAdminDto } from './dto/update-discount-type.admin.dto';
 
 @Injectable()
-export class DiscountTypeAdminService {
+export class DiscountTypesAdminService {
   constructor(
     @InjectRepository(DiscountTypeEntity)
     private readonly discountTypeRepository: Repository<DiscountTypeEntity>,
@@ -37,7 +37,10 @@ export class DiscountTypeAdminService {
 
   async update(id: number, dto: UpdateDiscountTypeAdminDto) {
     const discountType = await this.findOne(id);
-    Object.assign(discountType, dto);
+
+    discountType.code = dto.code;
+    discountType.name = dto.name;
+
     return this.discountTypeRepository.save(discountType);
   }
 
@@ -47,4 +50,3 @@ export class DiscountTypeAdminService {
     return this.discountTypeRepository.save(discountType);
   }
 }
-
