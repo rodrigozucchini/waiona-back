@@ -2,8 +2,8 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { ComboEntity } from './entities/combo.entity';
-import { ComboProductEntity } from './entities/combo-product.entity';
+import { ComboEntity } from '../entities/combo.entity';
+import { ComboProductEntity } from '../entities/combo-product.entity';
 
 import { CreateComboAdminDto } from './dto/create-combo.admin.dto';
 import { UpdateComboAdminDto } from './dto/update-combo.admin.dto';

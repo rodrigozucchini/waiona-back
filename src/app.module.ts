@@ -5,7 +5,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
-import { ProductsModule } from './products/admin/products.admin.module';
+import { ProductsModule } from './products/products.module';
 import { TaxesModule } from './pricing/taxes/admin/taxes.admin.module';
 import { MarginsModule } from './pricing/margins/admin/margins.admin.module';
 import { DiscountsModule } from './pricing/discounts/admin/discounts.admin.module';
@@ -17,6 +17,8 @@ import { RolesModule } from './roles/roles.module';
 import { AuthModule } from './auth/auth.module';
 import { ProfilesModule } from './profiles/profiles.module';
 import { Env } from './env.model';
+import { CombosModule } from './products/combos/combos.module';
+import { CombosAdminModule } from './products/combos/admin/combos.admin.module';
 
 @Module({
   imports: [
@@ -25,27 +27,31 @@ import { Env } from './env.model';
       isGlobal: true,
     }),
 
-    // 🔥 TypeORM usando variables de entorno
+    // 🔥 TypeORM
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (config: ConfigService<Env>) => ({
         type: 'postgres',
         host: config.get('POSTGRES_HOST', { infer: true }),
         port: config.get('POSTGRES_PORT', { infer: true }),
-        username: config.get('POSTGRES_USER' , { infer: true }),
-        password: config.get('POSTGRES_PASSWORD' , { infer: true }),
+        username: config.get('POSTGRES_USER', { infer: true }),
+        password: config.get('POSTGRES_PASSWORD', { infer: true }),
         database: config.get('POSTGRES_DB', { infer: true }),
         autoLoadEntities: true,
         synchronize: true, // solo dev
       }),
     }),
 
+    // 🔥 Admin API
     ProductsModule,
     TaxesModule,
     MarginsModule,
     DiscountsModule,
     TaxTypesModule,
     DiscountTypesModule,
+    CombosModule, // 👈 entidades
+    CombosAdminModule,
+    // 🔥 Core system
     UsersModule,
     PermissionsModule,
     RolesModule,

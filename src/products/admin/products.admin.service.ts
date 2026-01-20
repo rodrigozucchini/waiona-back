@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, In } from 'typeorm';
-import { ProductEntity } from './entities/product.entity';
+import { ProductEntity } from '../entities/product.entity';
 import { CreateProductAdminDto } from './dto/create-product.admin.dto';
 import { UpdateProductAdminDto } from './dto/update-product.admin.dto';
 import { MarginEntity } from 'src/pricing/margins/admin/entities/margin.entity';
