@@ -1,5 +1,11 @@
+import { IsInt, IsPositive } from 'class-validator';
+
 export class CreateProductImageAdminDto {
-    productId: number;
-    imageId: number;
-  }
-  
+  @IsInt()
+  @IsPositive()
+  productId: number; // ID del producto
+
+  @IsInt()
+  @IsPositive()
+  imageId: number; // ID de la imagen
+}

@@ -1,5 +1,5 @@
 export enum ProductType {
-    BEVERAGE = 'BEVERAGE',
-    SNACK = 'SNACK',
-    SERVICE = 'SERVICE',
-  }
+  BEVERAGE = 'BEVERAGE',
+  SNACK = 'SNACK',
+  SERVICE = 'SERVICE',
+}

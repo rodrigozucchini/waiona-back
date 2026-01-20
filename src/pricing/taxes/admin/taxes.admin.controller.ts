@@ -1,11 +1,19 @@
-import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
-import { TaxAdminService } from './taxes.admin.service';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Put,
+  Delete,
+} from '@nestjs/common';
+import { TaxesAdminService } from './taxes.admin.service';
 import { CreateTaxAdminDto } from './dto/create-tax.admin.dto';
 import { UpdateTaxAdminDto } from './dto/update-tax.admin.dto';
 
 @Controller('/admin/pricing/taxes')
-export class TaxAdminController {
-  constructor(private readonly taxService: TaxAdminService) {}
+export class TaxesAdminController {
+  constructor(private readonly taxService: TaxesAdminService) {}
 
   @Post()
   create(@Body() dto: CreateTaxAdminDto) {

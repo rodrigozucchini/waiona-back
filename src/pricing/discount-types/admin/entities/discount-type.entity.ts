@@ -1,13 +1,23 @@
-// src/discounts/entities/discount-type.entity.ts
-
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, Index } from 'typeorm';
 import { BaseEntity } from '../../../../common/entities/base.entity';
 
 @Entity('discount_types')
+@Index(['code'], { unique: true })
 export class DiscountTypeEntity extends BaseEntity {
-  @Column({ unique: true })
-  code: string; // PROMO, CUPON, BANCO, BLACK_FRIDAY, etc
+  // Código interno: PROMO, CUPON, BANCO, BLACK_FRIDAY
+  @Column({
+    type: 'varchar',
+    length: 50,
+    nullable: false,
+    unique: true,
+  })
+  code: string;
 
-  @Column()
-  name: string; // Promoción, Cupón, Descuento Bancario, etc
+  // Nombre visible: Promoción, Cupón, Descuento Bancario
+  @Column({
+    type: 'varchar',
+    length: 100,
+    nullable: false,
+  })
+  name: string;
 }

@@ -1,11 +1,13 @@
-import { IsOptional, IsString } from 'class-validator';
+import { IsString, IsNotEmpty, MaxLength } from 'class-validator';
 
 export class UpdateTaxTypeAdminDto {
-  @IsOptional()
   @IsString()
-  code?: string;
+  @IsNotEmpty()
+  @MaxLength(50)
+  code: string;
 
-  @IsOptional()
   @IsString()
-  name?: string;
+  @IsNotEmpty()
+  @MaxLength(100)
+  name: string;
 }

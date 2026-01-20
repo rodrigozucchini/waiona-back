@@ -1,11 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { DiscountTypeAdminService } from './discount-types.admin.service';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  Put,
+} from '@nestjs/common';
+import { DiscountTypesAdminService } from './discount-types.admin.service';
 import { CreateDiscountTypeAdminDto } from './dto/create-discount-type.admin.dto';
 import { UpdateDiscountTypeAdminDto } from './dto/update-discount-type.admin.dto';
 
 @Controller('pricing/discount-types')
-export class DiscountTypeAdminController {
-  constructor(private readonly discountTypesService: DiscountTypeAdminService) {}
+export class DiscountTypesAdminController {
+  constructor(
+    private readonly discountTypesService: DiscountTypesAdminService,
+  ) {}
 
   @Post()
   create(@Body() dto: CreateDiscountTypeAdminDto) {
@@ -22,7 +32,7 @@ export class DiscountTypeAdminController {
     return this.discountTypesService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(@Param('id') id: number, @Body() dto: UpdateDiscountTypeAdminDto) {
     return this.discountTypesService.update(+id, dto);
   }

@@ -1,31 +1,49 @@
-import { IsString, IsOptional, IsEnum, IsNumber, IsArray, IsInt } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsEnum,
+  IsNumber,
+  IsArray,
+  IsInt,
+  Min,
+  MaxLength,
+  ArrayNotEmpty,
+  ArrayUnique,
+} from 'class-validator';
 import { ProductType } from 'src/common/enums/product-type.enum';
 
-
 export class CreateProductAdminDto {
+  @IsString()
+  @MaxLength(50)
+  sku: string; // SKU único, hasta 50 caracteres
 
   @IsString()
-  sku: string;
-
-  @IsString()
-  name: string;
+  @MaxLength(255)
+  name: string; // Nombre del producto, hasta 255 caracteres
 
   @IsOptional()
   @IsString()
-  description?: string;
+  @MaxLength(500)
+  description?: string; // Descripción opcional, hasta 500 caracteres
 
   @IsEnum(ProductType)
-  type: ProductType;
+  type: ProductType; // Enum ProductType
 
-  @IsNumber()
-  basePrice: number;
+  @IsNumber({ maxDecimalPlaces: 2 })
+  @Min(0)
+  basePrice: number; // Precio base positivo, hasta 2 decimales
 
   // Relaciones por ID
   @IsOptional()
   @IsInt()
-  marginId?: number;
+  @Min(1)
+  marginId?: number; // ID del margen, entero positivo
 
   @IsOptional()
   @IsArray()
-  taxIds?: number[];
+  @ArrayNotEmpty()
+  @ArrayUnique()
+  @IsInt({ each: true })
+  @Min(1, { each: true })
+  taxIds?: number[]; // Array de IDs de impuestos, enteros positivos
 }

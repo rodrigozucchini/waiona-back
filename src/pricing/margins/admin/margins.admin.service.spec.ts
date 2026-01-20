@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { MarginAdminService } from './margins.admin.service';
+import { MarginsAdminService } from './margins.admin.service';
 
 describe('MarginsService', () => {
-  let service: MarginAdminService;
+  let service: MarginsAdminService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [MarginAdminService],
+      providers: [MarginsAdminService],
     }).compile();
 
-    service = module.get<MarginAdminService>(MarginAdminService);
+    service = module.get<MarginsAdminService>(MarginsAdminService);
   });
 
   it('should be defined', () => {

@@ -1,8 +1,8 @@
-import { IsNumber, Min, IsOptional } from 'class-validator';
+import { IsNumber, Min, Max } from 'class-validator';
 
 export class UpdateMarginAdminDto {
-  @IsOptional()
-  @IsNumber()
+  @IsNumber({ maxDecimalPlaces: 2 })
   @Min(0)
-  value?: number;
+  @Max(100)
+  value: number;
 }

@@ -1,5 +1,11 @@
+import { IsInt, IsPositive } from 'class-validator';
+
 export class CreateComboImageAdminDto {
-    comboId: number;
-    imageId: number;
-  }
-  
+  @IsInt()
+  @IsPositive()
+  comboId: number; // ID del combo
+
+  @IsInt()
+  @IsPositive()
+  imageId: number; // ID de la imagen
+}

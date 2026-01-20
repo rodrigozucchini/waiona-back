@@ -1,18 +1,16 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ImageEntity } from '../entities/image.entity';
-import { ProductImageEntity } from '../entities/product-image.entity';
-import { ComboImageEntity } from '../entities/combo-image.entity';
-import { CreateImageAdminDto } from '../dto/create-image.admin.dto';
-import { UpdateImageAdminDto } from '../dto/update-imageadmin..dto';
-import { CreateProductImageAdminDto } from '../dto/create-product-image.admin.dto';
-import { CreateComboImageAdminDto } from '../dto/create-combo-image.admin.dto';
-
-
+import { ImageEntity } from './entities/image.entity';
+import { ProductImageEntity } from './entities/product-image.entity';
+import { ComboImageEntity } from './entities/combo-image.entity';
+import { CreateImageAdminDto } from './dto/create-image.admin.dto';
+import { UpdateImageAdminDto } from './dto/update-image.admin.dto';
+import { CreateProductImageAdminDto } from './dto/create-product-image.admin.dto';
+import { CreateComboImageAdminDto } from './dto/create-combo-image.admin.dto';
 
 @Injectable()
-export class ImageAdminService {
+export class ImagesAdminService {
   constructor(
     @InjectRepository(ImageEntity)
     private readonly imageRepository: Repository<ImageEntity>,
@@ -52,8 +50,14 @@ export class ImageAdminService {
   }
 
   async update(id: number, dto: UpdateImageAdminDto) {
+    // Buscamos la imagen a actualizar
     const image = await this.findOne(id);
-    Object.assign(image, dto);
+
+    // Asignación explícita de campos obligatorios (PUT)
+    image.url = dto.url;
+    image.order = dto.order;
+
+    // Guardamos en la base de datos
     return this.imageRepository.save(image);
   }
 

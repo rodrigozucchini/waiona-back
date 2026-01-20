@@ -6,7 +6,7 @@ import { CreateMarginAdminDto } from './dto/create-margin.admin.dto';
 import { UpdateMarginAdminDto } from './dto/update-margin.admin.dto';
 
 @Injectable()
-export class MarginAdminService {
+export class MarginsAdminService {
   constructor(
     @InjectRepository(MarginEntity)
     private readonly marginRepository: Repository<MarginEntity>,
@@ -35,7 +35,8 @@ export class MarginAdminService {
 
   async update(id: number, dto: UpdateMarginAdminDto) {
     const margin = await this.findOne(id);
-    Object.assign(margin, dto);
+    margin.value = dto.value;
+
     return this.marginRepository.save(margin);
   }
 

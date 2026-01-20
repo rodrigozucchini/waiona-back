@@ -1,14 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { MarginAdminService } from './margins.admin.service';
-import { MarginAdminController } from './margins.admin.controller';
+import { MarginsAdminService } from './margins.admin.service';
+import { MarginsAdminController } from './margins.admin.controller';
 import { MarginEntity } from './entities/margin.entity';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([MarginEntity]),
-  ],
-  controllers: [MarginAdminController],
-  providers: [MarginAdminService],
+  imports: [TypeOrmModule.forFeature([MarginEntity])],
+  controllers: [MarginsAdminController],
+  providers: [MarginsAdminService],
+  exports: [MarginsAdminService, TypeOrmModule], // 👈 exportar para que otros módulos vean el repositorio
 })
 export class MarginsModule {}
