@@ -1,5 +1,5 @@
 import { Entity, Column, ManyToOne, JoinColumn, Index } from 'typeorm';
-import { BaseEntity } from '../../../../common/entities/base.entity';
+import { BaseEntity } from '../../../common/entities/base.entity';
 import { ComboEntity } from '../../combos/entities/combo.entity';
 import { ImageEntity } from './image.entity';
 

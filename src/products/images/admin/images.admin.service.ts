@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ImageEntity } from './entities/image.entity';
-import { ProductImageEntity } from './entities/product-image.entity';
-import { ComboImageEntity } from './entities/combo-image.entity';
+import { ImageEntity } from '../entities/image.entity';
+import { ProductImageEntity } from '../entities/product-image.entity';
+import { ComboImageEntity } from '../entities/combo-image.entity';
 import { CreateImageAdminDto } from './dto/create-image.admin.dto';
 import { UpdateImageAdminDto } from './dto/update-image.admin.dto';
 import { CreateProductImageAdminDto } from './dto/create-product-image.admin.dto';

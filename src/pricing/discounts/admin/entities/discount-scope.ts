@@ -1,8 +1,8 @@
 import { BaseEntity } from 'src/common/entities/base.entity';
 import { Column, Entity, JoinColumn, ManyToOne, Index } from 'typeorm';
 import { DiscountEntity } from './discount.entity';
-import { ComboEntity } from 'src/products/admin/combos/entities/combo.entity';
-import { ProductEntity } from 'src/products/admin/entities/product.entity';
+import { ComboEntity } from 'src/products/combos/entities/combo.entity';
+import { ProductEntity } from 'src/products/entities/product.entity';
 import { CouponEntity } from './coupons.entity';
 import { DiscountScopeType } from 'src/common/enums/discount-scope-global.enum';
 

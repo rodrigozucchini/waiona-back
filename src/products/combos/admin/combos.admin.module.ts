@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { ComboEntity } from './entities/combo.entity';
-import { ComboProductEntity } from './entities/combo-product.entity';
+import { ComboEntity } from '../entities/combo.entity';
+import { ComboProductEntity } from '../entities/combo-product.entity';
 
 import { CombosAdminService } from './combos.admin.service';
 import { CombosAdminController } from './combos.admin.controller';
 
 // 👇 IMPORTAR EL MÓDULO DE IMÁGENES
-import { ImagesAdminModule } from '../images/images.admin.module';
+import { ImagesAdminModule } from '../../images/admin/images.admin.module';
 
 @Module({
   imports: [
