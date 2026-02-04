@@ -32,6 +32,17 @@ The API is organized into **client** and **admin** namespaces:
   - `PUT /client/users/:id/password` → change password
   - Controller: `src/users/client/users.client.controller.ts`
 
+### Users (admin)
+- Base: `/admin/users`
+  - `POST /admin/users` → create user
+  - `GET /admin/users` → list users
+  - `GET /admin/users/:id` → get user
+  - `PUT /admin/users/:id` → update user
+  - `PUT /admin/users/:id/status` → change status
+  - `PUT /admin/users/:id/reset-password` → reset password
+  - `DELETE /admin/users/:id` → soft delete
+  - Controller: `src/users/admin/users.admin.controller.ts`
+
 ### Categories (admin)
 - Base: `/admin/categories`
   - CRUD endpoints
