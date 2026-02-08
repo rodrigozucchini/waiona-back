@@ -1,113 +1,86 @@
-# AGENTS.md — Waiona Back API Overview
+# Repository Guidelines
 
-This file provides a concise, AI-friendly overview of the API structure, routes, and conventions.
-It is meant to be shared with future AI assistants so they can quickly understand the project.
+## How to Use This Guide
+- Start here for cross-project norms in this NestJS API.
+- Each top-level module under `src/` has its own `AGENTS.md` with module-specific rules.
+- When guidance conflicts, the closer `AGENTS.md` (module-level) overrides this file.
 
-## Project summary
-- Framework: NestJS (TypeScript).
-- Database: PostgreSQL via TypeORM.
-- App entrypoint: `src/main.ts` (global validation + serialization).
-- Root module: `src/app.module.ts` (all feature modules wired here).
+## Available Skills
+Use these skills when you need deeper, standardized patterns:
 
-## Global behavior
-- ValidationPipe: `whitelist: true`, `forbidNonWhitelisted: true`, `transform: true`.
-- ClassSerializerInterceptor enabled globally.
-- Default port: `process.env.PORT ?? 3000`.
+| Skill | Description | URL |
+|-------|-------------|-----|
+| `nestjs` | NestJS modules, controllers, DTO validation, and conventions | [SKILL.md](skills/nestjs/SKILL.md) |
+| `postgres` | Postgres + TypeORM migrations, schema conventions | [SKILL.md](skills/postgres/SKILL.md) |
+| `pull-request` | Branch/commit/PR workflow and standards | [SKILL.md](skills/pull-request/SKILL.md) |
+| `skill-creator` | Create or update skill docs/templates | [SKILL.md](skills/assets/SKILL-TEMPLATE.md) |
 
-## Route namespaces
-The API is organized into **client** and **admin** namespaces:
-- Client routes: `/client/...`
-- Admin routes: `/admin/...`
+## Auto-invoke Skills
+When performing these actions, ALWAYS consult the corresponding skill first:
 
-## Routes (controller-level base paths)
-### App
-- `GET /` → basic health/hello response.
-  - Controller: `src/app.controller.ts`
+| Action | Skill |
+|--------|-------|
+| Creating or updating API controllers/modules/DTOs | `nestjs` |
+| Working on database schema or migrations | `postgres` |
+| Creating branches, commits, or PRs | `pull-request` |
+| Creating or updating skill docs | `skill-creator` |
 
-### Users (client)
-- Base: `/client/users`
-  - `POST /client/users` → register
-  - `GET /client/users/:id` → get profile
-  - `PUT /client/users/:id` → update profile
-  - `PUT /client/users/:id/password` → change password
-  - Controller: `src/users/client/users.client.controller.ts`
+---
 
-### Users (admin)
-- Base: `/admin/users`
-  - `POST /admin/users` → create user
-  - `GET /admin/users` → list users
-  - `GET /admin/users/:id` → get user
-  - `PUT /admin/users/:id` → update user
-  - `PUT /admin/users/:id/status` → change status
-  - `PUT /admin/users/:id/reset-password` → reset password
-  - `DELETE /admin/users/:id` → soft delete
-  - Controller: `src/users/admin/users.admin.controller.ts`
+## Project Overview
 
-### Categories (admin)
-- Base: `/admin/categories`
-  - CRUD endpoints
-  - Controller: `src/categories/admin/categories.admin.controller.ts`
+**Waiona Back** is a NestJS (TypeScript) API with Postgres via TypeORM. The API uses a **client/admin** namespace split and global validation/serialization in `src/main.ts`.
 
-### Products (admin)
-- Base: `/admin/products`
-  - CRUD endpoints
-  - Controller: `src/products/admin/products.admin.controller.ts`
+### Key Entrypoints
+- App bootstrap: `src/main.ts`
+- Root module: `src/app.module.ts`
+- HTTP controllers: `src/**/**.controller.ts`
 
-### Combos (admin)
-- Base: `/admin/combos`
-  - CRUD endpoints
-  - Product-in-combo endpoints:
-    - `POST /admin/combos/product`
-    - `PUT /admin/combos/product/:id`
-    - `DELETE /admin/combos/product/:id`
-    - `GET /admin/combos/:id/products`
-  - Controller: `src/products/combos/admin/combos.admin.controller.ts`
+### Route Namespaces
+- **Client**: `/client/...`
+- **Admin**: `/admin/...`
 
-### Images (admin)
-- Base: `/admin/images`
-  - CRUD endpoints
-  - Product images:
-    - `POST /admin/images/product`
-    - `GET /admin/images/product/:productId`
-  - Combo images:
-    - `POST /admin/images/combo`
-    - `GET /admin/images/combo/:comboId`
-  - Controller: `src/products/images/admin/images.admin.controller.ts`
+---
 
-### Pricing (admin)
-- Discounts:
-  - Base: `/admin/pricing/discounts`
-  - Controller: `src/pricing/discounts/admin/discounts.admin.controller.ts`
-- Discount types:
-  - Base: `/admin/pricing/discount-types`
-  - Controller: `src/pricing/discount-types/admin/discount-types.admin.controller.ts`
-- Taxes:
-  - Base: `/admin/pricing/taxes`
-  - Controller: `src/pricing/taxes/admin/taxes.admin.controller.ts`
-- Tax types:
-  - Base: `/admin/pricing/tax-types`
-  - Controller: `src/pricing/tax-types/admin/tax-types.admin.controller.ts`
-- Margins:
-  - Base: `/admin/pricing/margins`
-  - Controller: `src/pricing/margins/admin/margins.admin.controller.ts`
+## Tech Stack
+- NestJS 11.x, TypeScript 5.7.x
+- TypeORM 0.3.x, PostgreSQL
+- class-validator + class-transformer
 
-## Stock (data models & DTOs)
-- Stock tables and entities exist for:
-  - `stocks`
-  - `stock_parameters`
-  - `stock_movements`
-  - `stock_losses`
-- DTOs live in `src/stock/dto` and include:
-  - create/update stock parameters
-  - create stock movements and losses
-  - response DTOs for stock, movements, and losses
+---
 
-## Implementation notes & conventions
-- Consistent admin prefix: `/admin/...`.
-- Most endpoints are standard CRUD (POST, GET, PUT, DELETE).
-- Some controllers use `ParseIntPipe` for numeric IDs.
+## Project Structure (Top-Level)
+```
+src/
+├── auth/
+├── categories/
+├── common/
+├── database/
+├── permissions/
+├── pricing/
+├── products/
+├── profiles/
+├── roles/
+├── stock/
+└── users/
+```
 
-## Files worth knowing
-- `src/main.ts` → global pipeline, serialization, app bootstrap.
-- `src/app.module.ts` → module wiring and DB config.
-- `src/**/**.controller.ts` → HTTP endpoints.
+Each folder contains an `AGENTS.md` with module-specific rules and conventions.
+
+---
+
+## Development Commands
+```bash
+npm run start:dev      # Start API in watch mode
+npm run lint           # Lint + auto-fix
+npm run test           # Unit tests
+npm run test:e2e        # E2E tests
+npm run migrations:run  # Run TypeORM migrations
+```
+
+---
+
+## Commit & Pull Request Guidelines
+- Follow the branch and commit rules in `skills/pull-request/SKILL.md`.
+- Include test results (or explain why not run) in PR summaries.
+- For any API route changes, update the relevant module `AGENTS.md`.
