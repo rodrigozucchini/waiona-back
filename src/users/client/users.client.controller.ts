@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Get, Put, Param, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Put,
+  Param,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { UsersClientService } from './users.client.service';
 
 import { UserResponseClientDto } from './dto/user-response-client.dto';
@@ -12,13 +20,17 @@ export class UsersClientController {
 
   // Registro
   @Post()
-  async register(@Body() dto: CreateUserClientDto): Promise<UserResponseClientDto> {
+  async register(
+    @Body() dto: CreateUserClientDto,
+  ): Promise<UserResponseClientDto> {
     return this.userClientService.create(dto);
   }
 
   // Obtener perfil (temporal: con param userId hasta que tengamos auth)
   @Get(':id')
-  async findOne(@Param('id', ParseIntPipe) id: number): Promise<UserResponseClientDto> {
+  async findOne(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<UserResponseClientDto> {
     return this.userClientService.findMe(id);
   }
 

@@ -20,4 +20,3 @@ export class MarginEntity extends BaseEntity {
   })
   isPercentage: boolean;
 }
-

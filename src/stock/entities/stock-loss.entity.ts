@@ -5,7 +5,6 @@ import { StockLossReason } from '../../common/enums/stock-loss-reason.enum';
 
 @Entity('stock_losses')
 export class StockLossEntity extends BaseEntity {
-
   @ManyToOne(() => ProductEntity, { nullable: false })
   product: ProductEntity;
 

@@ -1,6 +1,6 @@
 export enum StockLossReason {
-  BROKEN = 'BROKEN',
+  DAMAGE = 'DAMAGE',
   EXPIRED = 'EXPIRED',
+  THEFT = 'THEFT',
   LOST = 'LOST',
-  OTHER = 'OTHER',
 }

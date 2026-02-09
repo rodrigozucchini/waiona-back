@@ -1,9 +1,13 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 
-import { UserEntity } from 'src/users/entities/user.entity';
+import { UserEntity } from '../entities/user.entity';
 
 import { UserResponseClientDto } from './dto/user-response-client.dto';
 import { CreateUserClientDto } from './dto/create-user-client.dto';
@@ -18,7 +22,9 @@ export class UsersClientService {
   ) {}
 
   // ================= Registro de usuario =================
-  async create(createUserDto: CreateUserClientDto): Promise<UserResponseClientDto> {
+  async create(
+    createUserDto: CreateUserClientDto,
+  ): Promise<UserResponseClientDto> {
     // Verificar email duplicado
     const existingUser = await this.userRepository.findOne({
       where: { person: { email: createUserDto.email } },
@@ -53,7 +59,10 @@ export class UsersClientService {
   }
 
   // ================= Actualizar perfil =================
-  async update(userId: number, updateUserDto: UpdateUserClientDto): Promise<UserResponseClientDto> {
+  async update(
+    userId: number,
+    updateUserDto: UpdateUserClientDto,
+  ): Promise<UserResponseClientDto> {
     const user = await this.userRepository.findOne({
       where: { id: userId },
       relations: ['person'],
@@ -77,7 +86,10 @@ export class UsersClientService {
   }
 
   // ================= Cambiar contraseña =================
-  async changePassword(userId: number, dto: ChangePasswordClientDto): Promise<void> {
+  async changePassword(
+    userId: number,
+    dto: ChangePasswordClientDto,
+  ): Promise<void> {
     const user = await this.userRepository.findOne({
       where: { id: userId },
       relations: ['person'],
@@ -87,7 +99,8 @@ export class UsersClientService {
 
     // Verificar password actual
     const isMatch = await bcrypt.compare(dto.currentPassword, user.password);
-    if (!isMatch) throw new BadRequestException('Current password is incorrect');
+    if (!isMatch)
+      throw new BadRequestException('Current password is incorrect');
 
     // Hashear nueva contraseña
     user.password = await bcrypt.hash(dto.newPassword, 10);

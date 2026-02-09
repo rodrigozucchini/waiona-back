@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { MarginEntity } from '../entities/margin.entity';
@@ -15,9 +19,7 @@ export class MarginsAdminService {
   async create(dto: CreateMarginAdminDto) {
     // defensa extra (por si entra algo fuera del DTO)
     if (dto.isPercentage && dto.value > 100) {
-      throw new BadRequestException(
-        'Percentage margin cannot exceed 100',
-      );
+      throw new BadRequestException('Percentage margin cannot exceed 100');
     }
 
     const margin = this.marginRepository.create({
@@ -58,14 +60,10 @@ export class MarginsAdminService {
     if (dto.value !== undefined) {
       // validación defensiva cruzada
       const isPercentage =
-        dto.isPercentage !== undefined
-          ? dto.isPercentage
-          : margin.isPercentage;
+        dto.isPercentage !== undefined ? dto.isPercentage : margin.isPercentage;
 
       if (isPercentage && dto.value > 100) {
-        throw new BadRequestException(
-          'Percentage margin cannot exceed 100',
-        );
+        throw new BadRequestException('Percentage margin cannot exceed 100');
       }
 
       margin.value = dto.value;

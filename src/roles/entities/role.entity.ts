@@ -5,7 +5,6 @@ import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
 
 @Entity('roles')
 export class RoleEntity extends BaseEntity {
-
   @Column({
     type: 'enum',
     enum: RoleType,
@@ -21,4 +20,3 @@ export class RoleEntity extends BaseEntity {
   })
   permissions: PermissionEntity[];
 }
-

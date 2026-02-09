@@ -1,6 +1,6 @@
 import { Exclude } from 'class-transformer';
-import { PersonType } from 'src/common/enums/person-type.enum';
-import { DocumentType } from 'src/common/enums/document-type.enum';
+import { PersonType } from '../../../common/enums/person-type.enum';
+import { DocumentType } from '../../../common/enums/document-type.enum';
 
 export class UserResponseClientDto {
   id: number;
