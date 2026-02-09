@@ -5,7 +5,6 @@ import { StockMovementType } from '../../common/enums/stock-movement-type.enum';
 
 @Entity('stock_movements')
 export class StockMovementEntity extends BaseEntity {
-
   @ManyToOne(() => ProductEntity, { nullable: false })
   product: ProductEntity;
 

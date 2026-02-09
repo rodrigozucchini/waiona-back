@@ -31,12 +31,8 @@ export class ProductsAdminService {
       description: dto.description,
       type: dto.type,
       basePrice: dto.basePrice,
-      margin: dto.marginId
-        ? await this.resolveMargin(dto.marginId)
-        : null,
-      taxes: dto.taxIds?.length
-        ? await this.resolveTaxes(dto.taxIds)
-        : [],
+      margin: dto.marginId ? await this.resolveMargin(dto.marginId) : null,
+      taxes: dto.taxIds?.length ? await this.resolveTaxes(dto.taxIds) : [],
     });
 
     return this.productRepository.save(product);
@@ -48,26 +44,14 @@ export class ProductsAdminService {
   findAll() {
     return this.productRepository.find({
       where: { isDeleted: false },
-      relations: [
-        'images',
-        'images.image',
-        'margin',
-        'taxes',
-        'taxes.taxType',
-      ],
+      relations: ['images', 'images.image', 'margin', 'taxes', 'taxes.taxType'],
     });
   }
 
   async findOne(id: number) {
     const product = await this.productRepository.findOne({
       where: { id, isDeleted: false },
-      relations: [
-        'images',
-        'images.image',
-        'margin',
-        'taxes',
-        'taxes.taxType',
-      ],
+      relations: ['images', 'images.image', 'margin', 'taxes', 'taxes.taxType'],
     });
 
     if (!product) {

@@ -21,7 +21,7 @@ import { CombosModule } from './products/combos/combos.module';
 import { CombosAdminModule } from './products/combos/admin/combos.admin.module';
 import { ProductsAdminModule } from './products/admin/products.admin.module';
 import { CategoriesModule } from './categories/categories.module';
-import { CategoriesAdminService } from './categories/admin/categories.admin.service';
+import { StockAdminModule } from './stock/admin/stock.admin.module';
 
 @Module({
   imports: [
@@ -62,8 +62,9 @@ import { CategoriesAdminService } from './categories/admin/categories.admin.serv
     AuthModule,
     ProfilesModule,
     CategoriesModule,
+    StockAdminModule,
   ],
   controllers: [AppController],
-  providers: [AppService, CategoriesAdminService],
+  providers: [AppService],
 })
 export class AppModule {}

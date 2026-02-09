@@ -1,8 +1,14 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateUserClientDto } from './create-user-client.dto';
-import { IsOptional, IsString, MaxLength, IsEnum, MinLength } from 'class-validator';
-import { PersonType } from 'src/common/enums/person-type.enum';
-import { DocumentType } from 'src/common/enums/document-type.enum';
+import {
+  IsOptional,
+  IsString,
+  MaxLength,
+  IsEnum,
+  MinLength,
+} from 'class-validator';
+import { PersonType } from '../../../common/enums/person-type.enum';
+import { DocumentType } from '../../../common/enums/document-type.enum';
 
 export class UpdateUserClientDto extends PartialType(CreateUserClientDto) {
   // ===== PERSON =====

@@ -1,10 +1,10 @@
 import { BaseEntity } from '../../../../common/entities/base.entity';
 import { Column, Entity, JoinColumn, ManyToOne, Index } from 'typeorm';
 import { DiscountEntity } from './discount.entity';
-import { ComboEntity } from 'src/products/combos/entities/combo.entity';
+import { ComboEntity } from '../../../../products/combos/entities/combo.entity';
 import { ProductEntity } from '../../../../products/entities/product.entity';
 import { CouponEntity } from './coupons.entity';
-import { DiscountScopeType } from 'src/common/enums/discount-scope-global.enum';
+import { DiscountScopeType } from '../../../../common/enums/discount-scope-global.enum';
 
 @Entity('discount_scopes')
 @Index(['discount', 'scopeType'])

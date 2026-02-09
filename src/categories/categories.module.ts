@@ -6,9 +6,7 @@ import { CategoriesAdminController } from './admin/categories.admin.controller';
 import { CategoriesAdminService } from './admin/categories.admin.service';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([CategoryEntity]),
-  ],
+  imports: [TypeOrmModule.forFeature([CategoryEntity])],
   controllers: [CategoriesAdminController],
   providers: [CategoriesAdminService],
   exports: [

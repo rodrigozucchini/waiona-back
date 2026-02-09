@@ -15,9 +15,7 @@ import { UpdateProductAdminDto } from './dto/update-product.admin.dto';
 
 @Controller('admin/products')
 export class ProductsAdminController {
-  constructor(
-    private readonly productsService: ProductsAdminService,
-  ) {}
+  constructor(private readonly productsService: ProductsAdminService) {}
 
   @Post()
   create(@Body() dto: CreateProductAdminDto) {

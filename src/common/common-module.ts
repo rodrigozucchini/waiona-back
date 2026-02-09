@@ -3,11 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PersonEntity } from './entities/person.entity';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([PersonEntity]),
-  ],
-  exports: [
-    TypeOrmModule,
-  ],
+  imports: [TypeOrmModule.forFeature([PersonEntity])],
+  exports: [TypeOrmModule],
 })
 export class CommonModule {}

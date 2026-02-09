@@ -61,9 +61,7 @@ export class ImagesAdminController {
   }
 
   @Get('product/:productId')
-  getImagesByProduct(
-    @Param('productId', ParseIntPipe) productId: number,
-  ) {
+  getImagesByProduct(@Param('productId', ParseIntPipe) productId: number) {
     return this.imagesService.getImagesByProduct(productId);
   }
 

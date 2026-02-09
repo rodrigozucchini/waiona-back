@@ -39,18 +39,12 @@ export class UsersAdminController {
   }
 
   @Put(':id/status')
-  changeStatus(
-    @Param('id') id: number,
-    @Body() dto: ChangeUserStatusAdminDto,
-  ) {
+  changeStatus(@Param('id') id: number, @Body() dto: ChangeUserStatusAdminDto) {
     return this.usersAdminService.changeStatus(+id, dto);
   }
 
   @Put(':id/reset-password')
-  resetPassword(
-    @Param('id') id: number,
-    @Body() dto: ResetPasswordAdminDto,
-  ) {
+  resetPassword(@Param('id') id: number, @Body() dto: ResetPasswordAdminDto) {
     return this.usersAdminService.resetPassword(+id, dto);
   }
 

@@ -12,7 +12,7 @@ import { TaxesAdminService } from './taxes.admin.service';
 import { CreateTaxAdminDto } from './dto/create-tax.admin.dto';
 import { UpdateTaxAdminDto } from './dto/update-tax.admin.dto';
 
-@Controller('/admin/pricing/taxes')
+@Controller('admin/pricing/taxes')
 export class TaxesAdminController {
   constructor(private readonly taxService: TaxesAdminService) {}
 

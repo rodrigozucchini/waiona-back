@@ -1,4 +1,10 @@
-import { IsNotEmpty, IsOptional, IsString, MaxLength, IsInt } from 'class-validator';
+import {
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MaxLength,
+  IsInt,
+} from 'class-validator';
 
 export class CreateCategoryAdminDto {
   @IsString()
