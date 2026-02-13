@@ -14,3 +14,6 @@ Permission entities and module wiring that support role-based access.
 ## Key Files
 - `permissions.module.ts`
 - `entities/`
+
+## Sync Note
+- Last reviewed with JWT/auth + avatar updates.

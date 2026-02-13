@@ -19,3 +19,6 @@ Admin pricing management: discounts, discount types, taxes, tax types, and margi
 - `tax-types/`
 - `margins/`
 - `pricing-calculation/`
+
+## Sync Note
+- Last reviewed with JWT/auth + avatar updates.

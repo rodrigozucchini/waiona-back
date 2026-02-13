@@ -16,3 +16,6 @@ Admin CRUD for categories with TypeORM entities and controllers.
 - `categories.module.ts`
 - `admin/categories.admin.controller.ts`
 - `entities/`
+
+## Sync Note
+- Last reviewed with JWT/auth + avatar updates.

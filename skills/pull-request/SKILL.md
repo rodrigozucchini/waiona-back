@@ -6,7 +6,7 @@ description: >
 license: UNLICENSED
 metadata:
   author: @rodrigozucchini
-  version: "1.0"
+  version: "1.1"
 ---
 
 ## When to Use
@@ -20,10 +20,11 @@ Use this skill when:
 
 ## Critical Patterns
 
-- Always create a **feature branch** before changing files.
+- Work on a **feature/fix/chore branch** (do not commit directly on long-lived branches).
 - Stage files explicitly with `git add` before committing.
-- Follow the commit naming convention and branch naming convention.
-- Every PR must include **Summary** + **Testing** sections.
+- Use imperative commit messages.
+- Every PR body must include **Summary** and **Testing** sections.
+- If routes, entities, or workflows changed, update the relevant `AGENTS.md`/skills in the same PR.
 
 ### Pattern 1: Branch naming convention
 
@@ -33,7 +34,7 @@ Use this skill when:
 Examples:
 feature/admin-users
 fix/stock-dto-validation
-chore/update-skills
+chore/update-agents-and-skills
 ```
 
 ### Pattern 2: Commit message convention
@@ -44,56 +45,19 @@ chore/update-skills
 Examples:
 Add admin users endpoints
 Fix stock DTO validation
-Update skills documentation
+Update AGENTS and skill docs
 ```
 
 ---
 
-## Decision Tree
-
-```
-Is there a new feature or fix? → Create a branch first
-Did you stage files? → Commit with convention
-Ready to share? → Open PR with summary + testing
-Otherwise → Keep working
-```
-
----
-
-## Code Examples
-
-### Example 1: Branch + commit
-
-```bash
-git checkout -b feature/admin-users
-git add src/users
-git commit -m "Add admin users endpoints"
-```
-
-### Example 2: PR body
+## PR Template
 
 ```markdown
 ## Summary
-- add admin users endpoints
-- wire admin module into users module
+- change 1
+- change 2
 
 ## Testing
-- not run (not requested)
+- ✅ <command>
+- ⚠️ <command> (if environment limitation)
 ```
-
----
-
-## Commands
-
-```bash
-git checkout -b feature/branch-name   # create branch
-git add .                              # stage changes
-git commit -m "Add feature"             # commit
-```
-
----
-
-## Resources
-
-- **Templates**: See [assets/](../assets/) for the skill template.
-- **Documentation**: See CONTRIBUTING.md if added later.
