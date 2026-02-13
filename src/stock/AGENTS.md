@@ -20,3 +20,6 @@ Stock management: entities, DTOs, and admin API for stock, stock parameters, mov
 - `admin/stock.admin.service.ts`
 - `dto/`
 - `entities/`
+
+## Sync Note
+- Last reviewed with JWT/auth + avatar updates.

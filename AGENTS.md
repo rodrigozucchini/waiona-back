@@ -31,6 +31,12 @@ When performing these actions, ALWAYS consult the corresponding skill first:
 
 **Waiona Back** is a NestJS (TypeScript) API with Postgres via TypeORM. The API uses a **client/admin** namespace split and global validation/serialization in `src/main.ts`.
 
+### Current App Snapshot (keep AGENTS in sync)
+- Auth now includes **local login + JWT token generation** in admin and client auth controllers.
+- A JWT strategy (`passport-jwt`) is configured in `AuthModule` and uses `JWT_SECRET` from env.
+- Product admin endpoints are protected with `AuthGuard('jwt')`.
+- `persons` includes optional `avatarUrl` (entity + migration).
+
 ### Key Entrypoints
 - App bootstrap: `src/main.ts`
 - Root module: `src/app.module.ts`
@@ -73,8 +79,8 @@ Each folder contains an `AGENTS.md` with module-specific rules and conventions.
 npm run start:dev      # Start API in watch mode
 npm run lint           # Lint + auto-fix
 npm run test           # Unit tests
-npm run test:e2e        # E2E tests
-npm run migrations:run  # Run TypeORM migrations
+npm run test:e2e       # E2E tests
+npm run migrations:run # Run TypeORM migrations
 ```
 
 ---

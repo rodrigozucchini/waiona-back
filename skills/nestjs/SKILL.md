@@ -6,25 +6,31 @@ description: >
 license: UNLICENSED
 metadata:
   author: @rodrigozucchini
-  version: "1.0"
+  version: "1.1"
 ---
 
 ## When to Use
 
 Use this skill when:
 - Creating or updating NestJS modules/controllers/services/DTOs/entities.
-- Adjusting API routes, validation, or serialization.
-- Reviewing architecture, common enums/interfaces, or project structure.
+- Adjusting API routes, validation, serialization, or auth guards.
+- Reviewing architecture, shared enums/interfaces, or project structure.
 
 ---
 
 ## Critical Patterns
 
-- **Namespace separation**: all routes are either `/client/...` or `/admin/...`. Keep the split consistent.
-- **Global validation**: `ValidationPipe` uses `whitelist`, `forbidNonWhitelisted`, and `transform`; never rely on unchecked payloads.
+- **Namespace separation**: all routes are either `/client/...` or `/admin/...`.
+- **Global validation**: `ValidationPipe` uses whitelist + transform; never trust unchecked payloads.
 - **DTO-first**: every request body must have a DTO with explicit validators.
-- **Entity base**: TypeORM entities extend `BaseEntity` (id + timestamps + isDeleted).
+- **Entity base**: TypeORM entities extend `BaseEntity`.
 - **No try/catch around imports** (project rule).
+
+### Auth pattern currently used
+- Local login uses `AuthGuard('local')` and validates `email/password` through `AuthService`.
+- JWT issuance is done by `AuthService.generateToken` with payload `{ sub: user.id }`.
+- `JwtStrategy` uses `JWT_SECRET` from env and bearer token extraction.
+- Admin modules requiring authentication use `@UseGuards(AuthGuard('jwt'))`.
 
 ### Pattern 1: Controller structure (admin vs client)
 
@@ -62,41 +68,12 @@ export class CreateExampleDto {
 
 ---
 
-## Versioning Notes
-
-- **NestJS**: v11 (see `@nestjs/*` dependencies).
-- **TypeORM**: v0.3.x (`typeorm` dependency).
-- **TypeScript**: v5.7.x (`typescript` devDependency).
-- Do **not** introduce features that require version upgrades without explicit approval.
-
----
-
 ## Project Structure Notes
 
-- `src/common/` holds shared enums, entities, and helpers used across modules.
-- Enums live in `src/common/enums` and must be reused in DTOs/entities to avoid drift.
-- Interfaces (when needed) live in `src/common/interfaces` to avoid duplication.
-- Common entities (`BaseEntity`, `PersonEntity`) are reused in `users` and related modules.
-- Keep new domain modules aligned to existing structure: module → controller → service → dto → entity.
-
----
-
-## Enums and Interfaces
-
-- Use enums from `src/common/enums` for statuses and types (e.g., `UserStatus`, `RoleType`, `ProductType`).
-- Prefer explicit enums in DTOs with `@IsEnum()` to align with entity constraints.
-- Keep enum values aligned with database enum definitions to avoid migration drift.
-- Interfaces should document DTO shapes or service contracts that are shared across modules.
-
----
-
-## Admin vs Client Workflow
-
-- **Admin** endpoints: manage data (CRUD, status changes, resets). Route prefix: `/admin/...`.
-- **Client** endpoints: user-facing flows (register/profile). Route prefix: `/client/...`.
-- If both exist for a domain, create separate controllers/modules.
-- Ensure request/response DTOs are aligned per namespace (admin vs client can differ).
-- Keep admin business rules stricter (e.g., status updates, soft deletes).
+- `src/common/` holds shared enums/entities/helpers used across modules.
+- Reuse common entities/enums before creating new ones.
+- Keep new domain modules aligned to: module → controller → service → dto → entity.
+- `PersonEntity` includes optional `avatarUrl`; keep DTO/entity/migration consistency.
 
 ---
 
@@ -106,32 +83,9 @@ export class CreateExampleDto {
 Is this route admin-only? → Use /admin prefix and admin module
 Is this route client-facing? → Use /client prefix and client module
 Are you accepting input? → Create/extend DTO with validators
+Does this route need auth? → Apply correct guard and strategy
 Is this shared logic? → Place it in src/common
-Otherwise → Follow existing patterns in module/controller/service
-```
-
----
-
-## Code Examples
-
-### Example 1: Admin module wiring
-
-```ts
-@Module({
-  controllers: [ExampleAdminController],
-  providers: [ExampleAdminService],
-})
-export class ExampleAdminModule {}
-```
-
-### Example 2: Entity with BaseEntity
-
-```ts
-@Entity('examples')
-export class ExampleEntity extends BaseEntity {
-  @Column({ length: 100 })
-  name: string;
-}
+Otherwise → Follow existing module/controller/service patterns
 ```
 
 ---
@@ -139,14 +93,7 @@ export class ExampleEntity extends BaseEntity {
 ## Commands
 
 ```bash
-npm run lint        # Run linting
-npm run test        # Run tests
-npm run start:dev   # Run dev server
+npm run lint
+npm run test
+npm run start:dev
 ```
-
----
-
-## Resources
-
-- **Templates**: See [assets/](../assets/) for the skill template.
-- **Documentation**: See src/app.module.ts and src/main.ts for global wiring/validation.

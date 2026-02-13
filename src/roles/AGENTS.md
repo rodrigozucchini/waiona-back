@@ -14,3 +14,6 @@ Role entities and module wiring to support role-based access.
 ## Key Files
 - `roles.module.ts`
 - `entities/`
+
+## Sync Note
+- Last reviewed with JWT/auth + avatar updates.
