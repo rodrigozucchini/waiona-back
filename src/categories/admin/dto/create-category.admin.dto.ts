@@ -4,15 +4,24 @@ import {
   IsString,
   MaxLength,
   IsInt,
+  IsBoolean,
 } from 'class-validator';
 
 export class CreateCategoryAdminDto {
   @IsString()
   @IsNotEmpty()
-  @MaxLength(150)
+  @MaxLength(100)
   name: string;
 
-  // categoría padre (opcional)
+  @IsOptional()
+  @IsString()
+  @MaxLength(255)
+  description?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  isActive?: boolean;
+
   @IsOptional()
   @IsInt()
   parentId?: number;

@@ -8,6 +8,7 @@ Admin CRUD for categories with TypeORM entities and controllers.
 
 ## Conventions
 - Admin routes live under `/admin/categories`.
+- Category CRUD endpoints are JWT-protected with `AuthGuard('jwt')`.
 - Keep DTOs, services, and controllers aligned with module boundaries.
 - Use shared enums/interfaces from `src/common/` when possible.
 - Update this file when new endpoints are added.
@@ -18,4 +19,4 @@ Admin CRUD for categories with TypeORM entities and controllers.
 - `entities/`
 
 ## Sync Note
-- Last reviewed with JWT/auth + avatar updates.
+- Last reviewed with admin category CRUD DTO/entity alignment and JWT protection.

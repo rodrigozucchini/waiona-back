@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+
 import { CategoryEntity } from '../entities/category.entity';
 import { CreateCategoryAdminDto } from './dto/create-category.admin.dto';
 import { UpdateCategoryAdminDto } from './dto/update-category.admin.dto';
@@ -14,6 +15,8 @@ function toResponseDto(category: CategoryEntity): CategoryResponseAdminDto {
   return {
     id: category.id,
     name: category.name,
+    description: category.description,
+    isActive: category.isActive,
     parent: category.parent
       ? { id: category.parent.id, name: category.parent.name }
       : null,
@@ -32,22 +35,16 @@ export class CategoriesAdminService {
   async create(dto: CreateCategoryAdminDto): Promise<CategoryResponseAdminDto> {
     const category = this.categoryRepository.create({
       name: dto.name,
+      description: dto.description,
+      isActive: dto.isActive ?? true,
     });
 
     if (dto.parentId) {
-      const parent = await this.categoryRepository.findOne({
-        where: { id: dto.parentId, isDeleted: false },
-      });
-
-      if (!parent) {
-        throw new NotFoundException('Parent category not found');
-      }
-
-      category.parent = parent;
+      category.parent = await this.resolveParent(dto.parentId);
     }
 
     const saved = await this.categoryRepository.save(category);
-    return toResponseDto(saved);
+    return this.findOne(saved.id);
   }
 
   async findAll(): Promise<CategoryResponseAdminDto[]> {
@@ -56,19 +53,12 @@ export class CategoriesAdminService {
       relations: ['parent'],
       order: { name: 'ASC' },
     });
+
     return list.map(toResponseDto);
   }
 
   async findOne(id: number): Promise<CategoryResponseAdminDto> {
-    const category = await this.categoryRepository.findOne({
-      where: { id, isDeleted: false },
-      relations: ['parent'],
-    });
-
-    if (!category) {
-      throw new NotFoundException('Category not found');
-    }
-
+    const category = await this.findEntityOrFail(id);
     return toResponseDto(category);
   }
 
@@ -76,50 +66,67 @@ export class CategoriesAdminService {
     id: number,
     dto: UpdateCategoryAdminDto,
   ): Promise<CategoryResponseAdminDto> {
-    const category = await this.findOne(id);
+    const category = await this.findEntityOrFail(id);
 
-    // 🔹 actualizar nombre
     if (dto.name !== undefined) {
       category.name = dto.name;
     }
 
-    // 🔹 actualizar padre (clave del problema)
+    if (dto.description !== undefined) {
+      category.description = dto.description;
+    }
+
+    if (dto.isActive !== undefined) {
+      category.isActive = dto.isActive;
+    }
+
     if (dto.parentId !== undefined) {
-      // categoría raíz
       if (dto.parentId === null) {
         category.parent = null;
       } else {
-        // no puede ser su propio padre
         if (dto.parentId === id) {
           throw new BadRequestException('Category cannot be its own parent');
         }
 
-        const parent = await this.categoryRepository.findOne({
-          where: { id: dto.parentId, isDeleted: false },
-        });
-
-        if (!parent) {
-          throw new NotFoundException('Parent category not found');
-        }
-
-        category.parent = parent;
+        category.parent = await this.resolveParent(dto.parentId);
       }
     }
+
+    const saved = await this.categoryRepository.save(category);
+    return this.findOne(saved.id);
+  }
+
+  async remove(id: number): Promise<CategoryResponseAdminDto> {
+    const category = await this.findEntityOrFail(id);
+
+    category.isDeleted = true;
 
     const saved = await this.categoryRepository.save(category);
     return toResponseDto(saved);
   }
 
-  async remove(id: number): Promise<CategoryResponseAdminDto> {
+  private async findEntityOrFail(id: number): Promise<CategoryEntity> {
     const category = await this.categoryRepository.findOne({
       where: { id, isDeleted: false },
       relations: ['parent'],
     });
+
     if (!category) {
       throw new NotFoundException('Category not found');
     }
-    category.isDeleted = true;
-    const saved = await this.categoryRepository.save(category);
-    return toResponseDto(saved);
+
+    return category;
+  }
+
+  private async resolveParent(parentId: number): Promise<CategoryEntity> {
+    const parent = await this.categoryRepository.findOne({
+      where: { id: parentId, isDeleted: false },
+    });
+
+    if (!parent) {
+      throw new NotFoundException('Parent category not found');
+    }
+
+    return parent;
   }
 }
