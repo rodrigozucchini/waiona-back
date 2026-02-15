@@ -1,12 +1,26 @@
-import { IsOptional, IsString, MaxLength, IsInt } from 'class-validator';
+import {
+  IsOptional,
+  IsString,
+  MaxLength,
+  IsInt,
+  IsBoolean,
+} from 'class-validator';
 
 export class UpdateCategoryAdminDto {
   @IsOptional()
   @IsString()
-  @MaxLength(150)
+  @MaxLength(100)
   name?: string;
 
-  // cambiar / asignar / quitar categoría padre
+  @IsOptional()
+  @IsString()
+  @MaxLength(255)
+  description?: string;
+
+  @IsOptional()
+  @IsBoolean()
+  isActive?: boolean;
+
   @IsOptional()
   @IsInt()
   parentId?: number | null;
