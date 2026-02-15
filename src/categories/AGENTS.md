@@ -8,7 +8,7 @@ Admin CRUD for categories with TypeORM entities and controllers.
 
 ## Conventions
 - Admin routes live under `/admin/categories`.
-- Client read routes live under `/client/categories` (GET list and GET by id).
+- Client read routes live under `/client/categories` (GET list and GET by id, where detail returns children and related products).
 - Category admin CRUD endpoints are JWT-protected with `AuthGuard('jwt')`.
 - Keep DTOs, services, and controllers aligned with module boundaries.
 - Use shared enums/interfaces from `src/common/` when possible.
@@ -20,4 +20,4 @@ Admin CRUD for categories with TypeORM entities and controllers.
 - `entities/`
 
 ## Sync Note
-- Last reviewed with admin category CRUD + client read-only endpoints and DTO/entity alignment.
+- Last reviewed with admin category CRUD + client read-only endpoints (including category detail with children/products) and DTO/entity alignment.

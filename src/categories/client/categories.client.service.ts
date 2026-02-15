@@ -13,6 +13,27 @@ function toResponseDto(category: CategoryEntity): CategoryResponseClientDto {
     parent: category.parent
       ? { id: category.parent.id, name: category.parent.name }
       : null,
+    children:
+      category.children
+        ?.filter((child) => !child.isDeleted && child.isActive)
+        .map((child) => ({
+          id: child.id,
+          name: child.name,
+          description: child.description,
+        })) ?? [],
+    products:
+      category.products
+        ?.filter((product) => !product.isDeleted)
+        .map((product) => ({
+          id: product.id,
+          sku: product.sku,
+          name: product.name,
+          description: product.description,
+          type: product.type,
+          basePrice: product.basePrice,
+          measureUnit: product.measureUnit,
+          measureValue: product.measureValue,
+        })) ?? [],
   };
 }
 
@@ -30,13 +51,17 @@ export class CategoriesClientService {
       order: { name: 'ASC' },
     });
 
-    return categories.map(toResponseDto);
+    return categories.map((category) => ({
+      ...toResponseDto(category),
+      children: [],
+      products: [],
+    }));
   }
 
   async findOne(id: number): Promise<CategoryResponseClientDto> {
     const category = await this.categoryRepository.findOne({
       where: { id, isDeleted: false, isActive: true },
-      relations: ['parent'],
+      relations: ['parent', 'children', 'products'],
     });
 
     if (!category) {
